@@ -9,55 +9,32 @@
     body {
         font-family: Arial, sans-serif;
         margin: 20px;
-        background-color: var(--bg);
-        color: var(--text);
+        background-color: #ffffff;
+        color: #000000;
         transition: 0.3s ease;
-    }
-
-    :root {
-        --bg: #ffffff;
-        --text: #000000;
-        --table-bg: #f2f2f2;
-    }
-
-    .dark-mode {
-        --bg: #1e1e1e;
-        --text: #e0e0e0;
-        --table-bg: #333333;
     }
 
     h2 {
         text-align: center;
         margin-bottom: 20px;
+        font-size: 24px;
     }
 
     .controls {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
         gap: 10px;
         margin-bottom: 20px;
+        justify-content: center;
     }
 
     input, select {
         padding: 12px;
         border: 1px solid #aaa;
         border-radius: 6px;
-        width: 100%;
         font-size: 16px;
+        flex: 1 1 200px;
     }
-
-    button {
-        padding: 10px 18px;
-        border: none;
-        background: #444;
-        color: white;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 16px;
-        width: 150px;
-    }
-
-    button:hover { background: #000; }
 
     table {
         width: 100%;
@@ -72,7 +49,7 @@
     }
 
     th {
-        background-color: var(--table-bg);
+        background-color: #f2f2f2;
     }
 
     a {
@@ -96,18 +73,20 @@
         table, thead, tbody, th, td, tr {
             display: block;
         }
-        th {
-            position: sticky;
-            top: 0;
+        thead tr {
+            display: none; /* Hide header row */
         }
         td {
-            padding-left: 50%;
+            padding: 10px 10px 10px 50%;
             position: relative;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 6px;
         }
         td::before {
             content: attr(data-label);
             position: absolute;
-            left: 10px;
+            left: 15px;
             font-weight: bold;
         }
     }
@@ -127,8 +106,6 @@
         <option value="FSF">FSF</option>
         <option value="FAMILY">Family</option>
     </select>
-
-    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
 </div>
 
 <table id="docTable">
@@ -141,7 +118,6 @@
     </thead>
 
     <tbody>
-
         <tr data-category="LTA">
             <td data-label="Document Name">LTA & FSF Forms</td>
             <td data-label="PDF"><a href="files/LTA_FSF_Forms.pdf" download>📄 PDF</a></td>
@@ -163,12 +139,10 @@
         <tr data-category="FSF">
     	    <td data-label="Document Name">FSF Forms</td>
             <td data-label="PDF"><a href="files/FSF_FORMS.pdf" download>📄 PDF</a></td>
-            <td data-label="Word"><a href="files/FSF_FORMS.docx" download>📝 Word</a></td>
-	</tr>
-
+            <td data-label="Word"><a href="files/FSF_FORMS_conv.docx" download>📝 Word</a></td>
+	    </tr>
     </tbody>
 </table>
-
 
 <script>
 function filterTable() {
@@ -180,14 +154,12 @@ function filterTable() {
         const name = row.cells[0].innerText.toLowerCase();
         const rowCategory = row.getAttribute("data-category");
 
-        // Matching Search & Category
         const matchSearch = name.includes(search);
         const matchCategory = (category === "all" || rowCategory === category);
 
         if (matchSearch && matchCategory) {
             row.style.display = "";
             
-            // Highlight text
             const originalText = row.cells[0].innerText;
             const regex = new RegExp(search, "gi");
             row.cells[0].innerHTML = originalText.replace(regex, match => `<span class="highlight">${match}</span>`);
@@ -195,10 +167,6 @@ function filterTable() {
             row.style.display = "none";
         }
     });
-}
-
-function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
 }
 </script>
 
