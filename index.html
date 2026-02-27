@@ -1,174 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pension Documents</title>
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #ffffff;
-        color: #000000;
-        transition: 0.3s ease;
-    }
-
-    h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 24px;
-    }
-
-    .controls {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 20px;
-        justify-content: center;
-    }
-
-    input, select {
-        padding: 12px;
-        border: 1px solid #aaa;
-        border-radius: 6px;
-        font-size: 16px;
-        flex: 1 1 200px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-    }
-
-    th, td {
-        padding: 12px;
-        border-bottom: 1px solid #555;
-        text-align: left;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    a {
-        text-decoration: none;
-        color: #0066cc;
-        font-weight: bold;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
-
-    .highlight {
-        background: yellow;
-        color: black;
-        font-weight: bold;
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 600px) {
-        table, thead, tbody, th, td, tr {
-            display: block;
-        }
-        thead tr {
-            display: none; /* Hide header row */
-        }
-        td {
-            padding: 10px 10px 10px 50%;
-            position: relative;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-            border-radius: 6px;
-        }
-        td::before {
-            content: attr(data-label);
-            position: absolute;
-            left: 15px;
-            font-weight: bold;
-        }
-    }
-</style>
-</head>
-
-<body>
-
-<h2>Pension Documents</h2>
-
-<div class="controls">
-    <input type="text" id="search" placeholder="Search document name..." onkeyup="filterTable()">
-    
-    <select id="category" onchange="filterTable()">
-        <option value="all">All Categories</option>
-        <option value="LTA">LTA</option>
-        <option value="FSF">FSF</option>
-        <option value="FAMILY">Family</option>
-    </select>
-</div>
-
-<table id="docTable">
-    <thead>
-        <tr>
-            <th>Document Name</th>
-            <th>PDF</th>
-            <th>Word</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr data-category="LTA">
-            <td data-label="Document Name">LTA & FSF Forms</td>
-            <td data-label="PDF"><a href="files/LTA_FSF_Forms.pdf" download>📄 PDF</a></td>
-            <td data-label="Word"><a href="files/LTA_FSF_Forms_conv.docx" download>📝 Word</a></td>
-        </tr>
-
-        <tr data-category="FSF">
-            <td data-label="Document Name">NEW FSF Forms</td>
-            <td data-label="PDF"><a href="files/NEW_FSF_FORMS.pdf" download>📄 PDF</a></td>
-            <td data-label="Word"><a href="files/NEW_FSF_FORMS_conv.docx" download>📝 Word</a></td>
-        </tr>
-
-        <tr data-category="FAMILY">
-            <td data-label="Document Name">Family Conversion Forms</td>
-            <td data-label="PDF"><a href="files/FAMILY_CONVERSION_FORMS.pdf" download>📄 PDF</a></td>
-            <td data-label="Word"><a href="files/FAMILY_CONVERSION_FORMS_conv.docx" download>📝 Word</a></td>
-        </tr>
-
-        <tr data-category="FSF">
-    	    <td data-label="Document Name">FSF Forms</td>
-            <td data-label="PDF"><a href="files/FSF_FORMS.pdf" download>📄 PDF</a></td>
-            <td data-label="Word"><a href="files/FSF_FORMS_conv.docx" download>📝 Word</a></td>
-	    </tr>
-    </tbody>
-</table>
-
 <script>
+
+// ===============================
+// KEYWORD MAP
+// ===============================
+const keywordMap = {
+    "NHIS": ["enrollment"],
+    "LC": ["life certificate", "life"],
+    "ALL": ["conversion"]
+};
+
+// ===============================
+// LEVENSHTEIN DISTANCE
+// ===============================
+function levenshtein(a, b) {
+    const matrix = [];
+
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1,
+                    matrix[i][j - 1] + 1,
+                    matrix[i - 1][j] + 1
+                );
+            }
+        }
+    }
+
+    return matrix[b.length][a.length];
+}
+
+// ===============================
+// FUZZY MATCH FUNCTION
+// ===============================
+function fuzzyMatch(input, keyword) {
+    input = input.toLowerCase();
+    keyword = keyword.toLowerCase();
+
+    if (input.includes(keyword)) return true;
+
+    const distance = levenshtein(input, keyword);
+    return distance <= 2; // allow small typos
+}
+
+// ===============================
+// MAIN FILTER FUNCTION
+// ===============================
 function filterTable() {
-    const search = document.getElementById("search").value.toLowerCase();
+    const search = document.getElementById("search").value.toLowerCase().trim();
     const category = document.getElementById("category").value;
     const rows = document.querySelectorAll("#docTable tbody tr");
 
     rows.forEach(row => {
-        const name = row.cells[0].innerText.toLowerCase();
+
+        const cell = row.cells[0];
+        const originalText = cell.innerText;
+        const docName = originalText.toLowerCase();
+        const docKey = originalText.toUpperCase();
         const rowCategory = row.getAttribute("data-category");
 
-        const matchSearch = name.includes(search);
-        const matchCategory = (category === "all" || rowCategory === category);
+        let matchSearch = false;
+        let matchCategory = (category === "all" || rowCategory === category);
 
+        // If no search → show based only on category
+        if (search === "") {
+            matchSearch = true;
+        } else {
+
+            // 1️⃣ Keyword Trigger Check
+            if (keywordMap[docKey]) {
+                const keywords = keywordMap[docKey];
+
+                for (let keyword of keywords) {
+                    if (fuzzyMatch(search, keyword)) {
+                        matchSearch = true;
+                        break;
+                    }
+                }
+            }
+
+            // 2️⃣ Normal Name Match
+            if (!matchSearch && docName.includes(search)) {
+                matchSearch = true;
+            }
+        }
+
+        // Final decision
         if (matchSearch && matchCategory) {
             row.style.display = "";
-            
-            const originalText = row.cells[0].innerText;
-            const regex = new RegExp(search, "gi");
-            row.cells[0].innerHTML = originalText.replace(regex, match => `<span class="highlight">${match}</span>`);
+
+            // Highlight exact match only
+            if (search !== "" && docName.includes(search)) {
+                const regex = new RegExp(search, "gi");
+                cell.innerHTML = originalText.replace(regex, 
+                    match => `<span class="highlight">${match}</span>`
+                );
+            } else {
+                cell.innerText = originalText;
+            }
+
         } else {
             row.style.display = "none";
         }
     });
 }
-</script>
 
+</script>
 </body>
 </html>
