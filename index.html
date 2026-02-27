@@ -6,31 +6,46 @@
 <title>Pension Documents</title>
 
 <style>
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #ffffff;
-    color: #000000;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
 }
 
 .controls {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    justify-content: space-between;
 }
 
 input, select {
-    padding: 10px;
-    border: 1px solid #aaa;
-    border-radius: 6px;
-    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    flex: 1;
+    min-width: 200px;
 }
 
 table {
@@ -38,59 +53,84 @@ table {
     border-collapse: collapse;
 }
 
-th, td {
-    padding: 12px;
-    border-bottom: 1px solid #ccc;
+th {
     text-align: left;
+    padding: 14px;
+    background: #f1f3f6;
+    font-weight: 600;
+    color: #34495e;
 }
 
-th {
-    background-color: #f2f2f2;
+td {
+    padding: 14px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+tr:hover {
+    background-color: #f9fbfd;
+}
+
+.document-name {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 16px;
 }
 
 a {
     text-decoration: none;
-    color: #0066cc;
-    font-weight: bold;
+    background: #0066cc;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s ease;
 }
 
 a:hover {
-    text-decoration: underline;
+    background: #004999;
 }
 
 .highlight {
     background: yellow;
-    font-weight: bold;
 }
 
 /* Mobile Responsive */
 @media (max-width: 600px) {
+
+    .controls {
+        flex-direction: column;
+    }
+
     table, thead, tbody, th, td, tr {
         display: block;
     }
+
     thead {
         display: none;
     }
-    td {
-        padding-left: 50%;
-        position: relative;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-        border-radius: 6px;
+
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 10px;
     }
-    td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 15px;
-        font-weight: bold;
+
+    td {
+        border: none;
+        padding: 8px 0;
     }
 }
+
 </style>
 </head>
 
 <body>
 
-<h2>Pension Documents</h2>
+<div class="container">
+
+<h2>Pension Document Portal</h2>
 
 <div class="controls">
     <input type="text" id="search" placeholder="Search documents..." onkeyup="filterTable()">
@@ -98,75 +138,64 @@ a:hover {
     <select id="category" onchange="filterTable()">
         <option value="all">All Categories</option>
         <option value="NHIS">NHIS</option>
-        <option value="LC">LC</option>
-        <option value="ALL">ALL</option>
-        <option value="FSF">FSF</option>
-        <option value="LTA">LTA</option>
+        <option value="LC">Life Certificate</option>
+        <option value="ALL">Conversion</option>
+        <option value="FSF">Family Security Fund</option>
+        <option value="LTA">Life Time Arrears</option>
     </select>
 </div>
 
 <table id="docTable">
+
 <thead>
 <tr>
-    <th>Document Name</th>
-    <th>PDF</th>
+    <th>Document</th>
+    <th>Download</th>
 </tr>
 </thead>
 
 <tbody>
 
 <tr data-category="NHIS">
-    <td data-label="Document Name">NHIS</td>
-    <td data-label="PDF">
-        <a href="files/NHIS.pdf" download>📄 PDF</a>
-    </td>
+    <td class="document-name">📋 NHIS Annexure-3</td>
+    <td><a href="files/NHIS.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr data-category="LC">
-    <td data-label="Document Name">LC</td>
-    <td data-label="PDF">
-        <a href="files/LC.pdf" download>📄 PDF</a>
-    </td>
+    <td class="document-name">🪪 LIFE CERTIFICATE format</td>
+    <td><a href="files/LC.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr data-category="ALL">
-    <td data-label="Document Name">ALL</td>
-    <td data-label="PDF">
-        <a href="files/ALL.pdf" download>📄 PDF</a>
-    </td>
+    <td class="document-name">🔄 Conversion form fullset</td>
+    <td><a href="files/ALL.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr data-category="FSF">
-    <td data-label="Document Name">FSF</td>
-    <td data-label="PDF">
-        <a href="files/FSF.pdf" download>📄 PDF</a>
-    </td>
+    <td class="document-name">👨‍👩‍👧 Family Security Fund Format</td>
+    <td><a href="files/FSF.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr data-category="LTA">
-    <td data-label="Document Name">LTA</td>
-    <td data-label="PDF">
-        <a href="files/LTA.pdf" download>📄 PDF</a>
-    </td>
+    <td class="document-name">💰 Life Time Arrears Format</td>
+    <td><a href="files/LTA.pdf" download>Download PDF</a></td>
 </tr>
 
 </tbody>
 </table>
 
+</div>
+
 <script>
 
-// =======================
 // KEYWORD MAP
-// =======================
 const keywordMap = {
-    "NHIS": ["enrollment"],
-    "LC": ["life certificate", "life"],
-    "ALL": ["conversion"]
+    "NHIS ANNEXURE-3": ["enrollment"],
+    "LIFE CERTIFICATE FORMAT": ["life certificate", "life"],
+    "CONVERSION FORM FULLSET": ["conversion"],
 };
 
-// =======================
 // LEVENSHTEIN DISTANCE
-// =======================
 function levenshtein(a, b) {
     const matrix = [];
     for (let i = 0; i <= b.length; i++) matrix[i] = [i];
@@ -174,46 +203,33 @@ function levenshtein(a, b) {
 
     for (let i = 1; i <= b.length; i++) {
         for (let j = 1; j <= a.length; j++) {
-            if (b[i - 1] === a[j - 1]) {
+            if (b[i - 1] === a[j - 1])
                 matrix[i][j] = matrix[i - 1][j - 1];
-            } else {
+            else
                 matrix[i][j] = Math.min(
                     matrix[i - 1][j - 1] + 1,
                     matrix[i][j - 1] + 1,
                     matrix[i - 1][j] + 1
                 );
-            }
         }
     }
     return matrix[b.length][a.length];
 }
 
-// =======================
-// FUZZY MATCH
-// =======================
 function fuzzyMatch(input, keyword) {
     input = input.toLowerCase();
     keyword = keyword.toLowerCase();
-
     if (input.includes(keyword)) return true;
-
     return levenshtein(input, keyword) <= 2;
 }
 
-// =======================
-// FILTER FUNCTION
-// =======================
 function filterTable() {
     const search = document.getElementById("search").value.toLowerCase().trim();
     const category = document.getElementById("category").value;
     const rows = document.querySelectorAll("#docTable tbody tr");
 
     rows.forEach(row => {
-
-        const cell = row.cells[0];
-        const originalText = cell.innerText;
-        const docName = originalText.toLowerCase();
-        const docKey = originalText.toUpperCase();
+        const name = row.cells[0].innerText.toLowerCase();
         const rowCategory = row.getAttribute("data-category");
 
         let matchSearch = false;
@@ -222,11 +238,8 @@ function filterTable() {
         if (search === "") {
             matchSearch = true;
         } else {
-
-            // Keyword-based fuzzy match
-            if (keywordMap[docKey]) {
-                const keywords = keywordMap[docKey];
-                for (let keyword of keywords) {
+            if (keywordMap[name.toUpperCase()]) {
+                for (let keyword of keywordMap[name.toUpperCase()]) {
                     if (fuzzyMatch(search, keyword)) {
                         matchSearch = true;
                         break;
@@ -234,27 +247,12 @@ function filterTable() {
                 }
             }
 
-            // Direct name match fallback
-            if (!matchSearch && docName.includes(search)) {
+            if (!matchSearch && name.includes(search)) {
                 matchSearch = true;
             }
         }
 
-        if (matchSearch && matchCategory) {
-            row.style.display = "";
-
-            if (search !== "" && docName.includes(search)) {
-                const regex = new RegExp(search, "gi");
-                cell.innerHTML = originalText.replace(regex,
-                    match => `<span class="highlight">${match}</span>`
-                );
-            } else {
-                cell.innerText = originalText;
-            }
-
-        } else {
-            row.style.display = "none";
-        }
+        row.style.display = (matchSearch && matchCategory) ? "" : "none";
     });
 }
 
