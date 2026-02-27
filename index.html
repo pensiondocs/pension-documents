@@ -18,6 +18,21 @@ h2 {
     margin-bottom: 20px;
 }
 
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -41,6 +56,11 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+.highlight {
+    background: yellow;
+    font-weight: bold;
 }
 
 /* Mobile Responsive */
@@ -72,7 +92,7 @@ a:hover {
 
 <h2>Pension Documents</h2>
 
-<table>
+<table id="docTable">
 <thead>
 <tr>
     <th>Document Name</th>
@@ -82,36 +102,36 @@ a:hover {
 
 <tbody>
 
-<tr>
-    <td data-label="Document Name">NHIS</td>
+<tr data-category="NHIS">
+    <td data-label="Document Name">NHIS Annexure-3</td>
     <td data-label="PDF">
         <a href="files/NHIS.pdf" download>📄 PDF</a>
     </td>
 </tr>
 
-<tr>
-    <td data-label="Document Name">LC</td>
+<tr data-category="LC">
+    <td data-label="Document Name">Life Certificate Format</td>
     <td data-label="PDF">
         <a href="files/LC.pdf" download>📄 PDF</a>
     </td>
 </tr>
 
-<tr>
-    <td data-label="Document Name">ALL</td>
+<tr data-category="ALL">
+    <td data-label="Document Name">Conversion Format (Full set)</td>
     <td data-label="PDF">
         <a href="files/ALL.pdf" download>📄 PDF</a>
     </td>
 </tr>
 
-<tr>
-    <td data-label="Document Name">FSF</td>
+<tr data-category="FSF">
+    <td data-label="Document Name">Family Security Fund Format</td>
     <td data-label="PDF">
         <a href="files/FSF.pdf" download>📄 PDF</a>
     </td>
 </tr>
 
-<tr>
-    <td data-label="Document Name">LTA</td>
+<tr data-category="LTA">
+    <td data-label="Document Name">Life Time Arrears Format</td>
     <td data-label="PDF">
         <a href="files/LTA.pdf" download>📄 PDF</a>
     </td>
@@ -119,6 +139,113 @@ a:hover {
 
 </tbody>
 </table>
+
+<script>
+
+// =======================
+// KEYWORD MAP
+// =======================
+const keywordMap = {
+    "NHIS": ["enrollment"],
+    "LC": ["life certificate", "life"],
+    "ALL": ["conversion"]
+};
+
+// =======================
+// LEVENSHTEIN DISTANCE
+// =======================
+function levenshtein(a, b) {
+    const matrix = [];
+    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b[i - 1] === a[j - 1]) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1,
+                    matrix[i][j - 1] + 1,
+                    matrix[i - 1][j] + 1
+                );
+            }
+        }
+    }
+    return matrix[b.length][a.length];
+}
+
+// =======================
+// FUZZY MATCH
+// =======================
+function fuzzyMatch(input, keyword) {
+    input = input.toLowerCase();
+    keyword = keyword.toLowerCase();
+
+    if (input.includes(keyword)) return true;
+
+    return levenshtein(input, keyword) <= 2;
+}
+
+// =======================
+// FILTER FUNCTION
+// =======================
+function filterTable() {
+    const search = document.getElementById("search").value.toLowerCase().trim();
+    const category = document.getElementById("category").value;
+    const rows = document.querySelectorAll("#docTable tbody tr");
+
+    rows.forEach(row => {
+
+        const cell = row.cells[0];
+        const originalText = cell.innerText;
+        const docName = originalText.toLowerCase();
+        const docKey = row.getAttribute("data-key");
+        const rowCategory = row.getAttribute("data-category");
+
+        let matchSearch = false;
+        let matchCategory = (category === "all" || rowCategory === category);
+
+        if (search === "") {
+            matchSearch = true;
+        } else {
+
+            // Keyword-based fuzzy match
+            if (keywordMap[docKey]) {
+                const keywords = keywordMap[docKey];
+                for (let keyword of keywords) {
+                    if (fuzzyMatch(search, keyword)) {
+                        matchSearch = true;
+                        break;
+                    }
+                }
+            }
+
+            // Direct name match fallback
+            if (!matchSearch && docName.includes(search)) {
+                matchSearch = true;
+            }
+        }
+
+        if (matchSearch && matchCategory) {
+            row.style.display = "";
+
+            if (search !== "" && docName.includes(search)) {
+                const regex = new RegExp(search, "gi");
+                cell.innerHTML = originalText.replace(regex,
+                    match => `<span class="highlight">${match}</span>`
+                );
+            } else {
+                cell.innerText = originalText;
+            }
+
+        } else {
+            row.style.display = "none";
+        }
+    });
+}
+
+</script>
 
 </body>
 </html>
