@@ -6,85 +6,113 @@
 <title>Pension Documents</title>
 
 <style>
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #ffffff;
-    color: #000000;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f7fa;
+    margin: 0;
+    padding: 40px 20px;
+    color: #2c3e50;
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 28px;
+    margin-bottom: 35px;
+    letter-spacing: 0.5px;
 }
 
-.controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-    justify-content: center;
+#docTable {
+    max-width: 850px;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0 12px;
 }
 
-input, select {
-    padding: 10px;
-    border: 1px solid #aaa;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 12px;
-    border-bottom: 1px solid #ccc;
+thead th {
     text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #7f8c8d;
+    padding: 8px 20px;
 }
 
-th {
-    background-color: #f2f2f2;
+tbody tr {
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    border-radius: 8px;
+    transition: 0.2s ease;
+}
+
+tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+td {
+    padding: 18px 20px;
+    font-size: 15px;
+    border: none;
+}
+
+td:first-child {
+    font-weight: 600;
 }
 
 a {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #2c3e50;
+    color: #ffffff;
+    border-radius: 6px;
+    font-size: 13px;
     text-decoration: none;
-    color: #0066cc;
-    font-weight: bold;
+    transition: 0.2s ease;
 }
 
 a:hover {
-    text-decoration: underline;
+    background: #1a252f;
 }
 
 .highlight {
-    background: yellow;
-    font-weight: bold;
+    background: #ffeaa7;
+    padding: 2px 4px;
+    border-radius: 4px;
 }
 
-/* Mobile Responsive */
+/* Mobile */
 @media (max-width: 600px) {
-    table, thead, tbody, th, td, tr {
-        display: block;
+
+    body {
+        padding: 20px 10px;
     }
+
+    #docTable {
+        border-spacing: 0 10px;
+    }
+
     thead {
         display: none;
     }
-    td {
-        padding-left: 50%;
-        position: relative;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-        border-radius: 6px;
+
+    tbody tr {
+        display: block;
+        padding: 15px;
     }
-    td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 15px;
-        font-weight: bold;
+
+    td {
+        display: block;
+        padding: 6px 0;
+    }
+
+    td:last-child {
+        margin-top: 8px;
     }
 }
+
 </style>
 </head>
 
@@ -249,3 +277,4 @@ function filterTable() {
 
 </body>
 </html>
+
