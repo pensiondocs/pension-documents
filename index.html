@@ -3,49 +3,28 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pension Documents</title>
+<title>Pension Documents Portal</title>
 
 <style>
-
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #f4f6f9;
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
     margin: 0;
     padding: 40px 20px;
 }
 
 .container {
-    max-width: 900px;
+    max-width: 800px;
     margin: auto;
-    background: #ffffff;
+    background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 h2 {
     text-align: center;
     margin-bottom: 25px;
-    font-size: 28px;
-    font-weight: 600;
-    color: #2c3e50;
-}
-
-.controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 25px;
-    justify-content: space-between;
-}
-
-input, select {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 15px;
-    flex: 1;
-    min-width: 200px;
 }
 
 table {
@@ -53,210 +32,76 @@ table {
     border-collapse: collapse;
 }
 
-th {
+th, td {
+    padding: 14px;
     text-align: left;
-    padding: 14px;
-    background: #f1f3f6;
-    font-weight: 600;
-    color: #34495e;
 }
 
-td {
-    padding: 14px;
-    border-bottom: 1px solid #eee;
-    vertical-align: middle;
+th {
+    background-color: #f0f0f0;
 }
 
-tr:hover {
-    background-color: #f9fbfd;
+tr {
+    border-bottom: 1px solid #e0e0e0;
 }
 
-.document-name {
-    font-weight: 600;
-    color: #2c3e50;
-    font-size: 16px;
-}
-
-a {
-    text-decoration: none;
-    background: #0066cc;
+.download-btn {
+    background-color: #1976d2;
     color: white;
-    padding: 6px 14px;
+    padding: 8px 14px;
     border-radius: 6px;
+    text-decoration: none;
     font-size: 14px;
-    transition: 0.3s ease;
 }
 
-a:hover {
-    background: #004999;
+.download-btn:hover {
+    background-color: #125aa0;
 }
-
-.highlight {
-    background: yellow;
-}
-
-/* Mobile Responsive */
-@media (max-width: 600px) {
-
-    .controls {
-        flex-direction: column;
-    }
-
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
-
-    thead {
-        display: none;
-    }
-
-    tr {
-        margin-bottom: 15px;
-        border: 1px solid #eee;
-        border-radius: 8px;
-        padding: 10px;
-    }
-
-    td {
-        border: none;
-        padding: 8px 0;
-    }
-}
-
 </style>
 </head>
 
 <body>
 
 <div class="container">
+    <h2>Pension Documents Portal</h2>
 
-<h2>Pension Document Portal</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Document</th>
+                <th>Download</th>
+            </tr>
+        </thead>
 
-<div class="controls">
-    <input type="text" id="search" placeholder="Search documents..." onkeyup="filterTable()">
+        <tbody>
+            <tr>
+                <td>NHIS</td>
+                <td><a href="files/NHIS.pdf" download class="download-btn">Download PDF</a></td>
+            </tr>
 
-    <select id="category" onchange="filterTable()">
-        <option value="all">All Categories</option>
-        <option value="NHIS">NHIS</option>
-        <option value="LC">Life Certificate</option>
-        <option value="ALL">Conversion</option>
-        <option value="FSF">Family Security Fund</option>
-        <option value="LTA">Life Time Arrears</option>
-    </select>
-</div>
+            <tr>
+                <td>LC (Life Certificate)</td>
+                <td><a href="files/LC.pdf" download class="download-btn">Download PDF</a></td>
+            </tr>
 
-<table id="docTable">
+            <tr>
+                <td>ALL (Conversion Forms)</td>
+                <td><a href="files/ALL.pdf" download class="download-btn">Download PDF</a></td>
+            </tr>
 
-<thead>
-<tr>
-    <th>Document</th>
-    <th>Download</th>
-</tr>
-</thead>
+            <tr>
+                <td>FSF</td>
+                <td><a href="files/FSF.pdf" download class="download-btn">Download PDF</a></td>
+            </tr>
 
-<tbody>
-
-<tr data-category="NHIS">
-    <td class="document-name">📋 NHIS Annexure-3</td>
-    <td><a href="files/NHIS.pdf" download>Download PDF</a></td>
-</tr>
-
-<tr data-category="LC">
-    <td class="document-name">🪪 LIFE CERTIFICATE format</td>
-    <td><a href="files/LC.pdf" download>Download PDF</a></td>
-</tr>
-
-<tr data-category="ALL">
-    <td class="document-name">🔄 Conversion form fullset</td>
-    <td><a href="files/ALL.pdf" download>Download PDF</a></td>
-</tr>
-
-<tr data-category="FSF">
-    <td class="document-name">👨‍👩‍👧 Family Security Fund Format</td>
-    <td><a href="files/FSF.pdf" download>Download PDF</a></td>
-</tr>
-
-<tr data-category="LTA">
-    <td class="document-name">💰 Life Time Arrears Format</td>
-    <td><a href="files/LTA.pdf" download>Download PDF</a></td>
-</tr>
-
-</tbody>
-</table>
+            <tr>
+                <td>LTA</td>
+                <td><a href="files/LTA.pdf" download class="download-btn">Download PDF</a></td>
+            </tr>
+        </tbody>
+    </table>
 
 </div>
-
-<script>
-
-// KEYWORD MAP
-const keywordMap = {
-    "NHIS ANNEXURE-3": ["enrollment"],
-    "LIFE CERTIFICATE FORMAT": ["life certificate", "life"],
-    "CONVERSION FORM FULLSET": ["conversion"],
-};
-
-// LEVENSHTEIN DISTANCE
-function levenshtein(a, b) {
-    const matrix = [];
-    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
-    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
-
-    for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-            if (b[i - 1] === a[j - 1])
-                matrix[i][j] = matrix[i - 1][j - 1];
-            else
-                matrix[i][j] = Math.min(
-                    matrix[i - 1][j - 1] + 1,
-                    matrix[i][j - 1] + 1,
-                    matrix[i - 1][j] + 1
-                );
-        }
-    }
-    return matrix[b.length][a.length];
-}
-
-function fuzzyMatch(input, keyword) {
-    input = input.toLowerCase();
-    keyword = keyword.toLowerCase();
-    if (input.includes(keyword)) return true;
-    return levenshtein(input, keyword) <= 2;
-}
-
-function filterTable() {
-    const search = document.getElementById("search").value.toLowerCase().trim();
-    const category = document.getElementById("category").value;
-    const rows = document.querySelectorAll("#docTable tbody tr");
-
-    rows.forEach(row => {
-        const name = row.cells[0].innerText.toLowerCase();
-        const rowCategory = row.getAttribute("data-category");
-
-        let matchSearch = false;
-        let matchCategory = (category === "all" || rowCategory === category);
-
-        if (search === "") {
-            matchSearch = true;
-        } else {
-            if (keywordMap[name.toUpperCase()]) {
-                for (let keyword of keywordMap[name.toUpperCase()]) {
-                    if (fuzzyMatch(search, keyword)) {
-                        matchSearch = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!matchSearch && name.includes(search)) {
-                matchSearch = true;
-            }
-        }
-
-        row.style.display = (matchSearch && matchCategory) ? "" : "none";
-    });
-}
-
-</script>
 
 </body>
 </html>
