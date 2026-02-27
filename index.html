@@ -3,28 +3,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pension Documents Portal</title>
+<title>Pension Documents</title>
 
 <style>
 body {
     font-family: Arial, sans-serif;
-    background-color: #f3f4f6;
-    margin: 0;
-    padding: 40px 20px;
-}
-
-.container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin: 20px;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 table {
@@ -33,75 +24,101 @@ table {
 }
 
 th, td {
-    padding: 14px;
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
     text-align: left;
 }
 
 th {
-    background-color: #f0f0f0;
+    background-color: #f2f2f2;
 }
 
-tr {
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.download-btn {
-    background-color: #1976d2;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 6px;
+a {
     text-decoration: none;
-    font-size: 14px;
+    color: #0066cc;
+    font-weight: bold;
 }
 
-.download-btn:hover {
-    background-color: #125aa0;
+a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead {
+        display: none;
+    }
+    td {
+        padding-left: 50%;
+        position: relative;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        font-weight: bold;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h2>Pension Documents Portal</h2>
+<h2>Pension Documents</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Document</th>
-                <th>Download</th>
-            </tr>
-        </thead>
+<table>
+<thead>
+<tr>
+    <th>Document Name</th>
+    <th>PDF</th>
+</tr>
+</thead>
 
-        <tbody>
-            <tr>
-                <td>NHIS</td>
-                <td><a href="files/NHIS.pdf" download class="download-btn">Download PDF</a></td>
-            </tr>
+<tbody>
 
-            <tr>
-                <td>LC (Life Certificate)</td>
-                <td><a href="files/LC.pdf" download class="download-btn">Download PDF</a></td>
-            </tr>
+<tr>
+    <td data-label="Document Name">NHIS</td>
+    <td data-label="PDF">
+        <a href="files/NHIS.pdf" download>📄 PDF</a>
+    </td>
+</tr>
 
-            <tr>
-                <td>ALL (Conversion Forms)</td>
-                <td><a href="files/ALL.pdf" download class="download-btn">Download PDF</a></td>
-            </tr>
+<tr>
+    <td data-label="Document Name">LC</td>
+    <td data-label="PDF">
+        <a href="files/LC.pdf" download>📄 PDF</a>
+    </td>
+</tr>
 
-            <tr>
-                <td>FSF</td>
-                <td><a href="files/FSF.pdf" download class="download-btn">Download PDF</a></td>
-            </tr>
+<tr>
+    <td data-label="Document Name">ALL</td>
+    <td data-label="PDF">
+        <a href="files/ALL.pdf" download>📄 PDF</a>
+    </td>
+</tr>
 
-            <tr>
-                <td>LTA</td>
-                <td><a href="files/LTA.pdf" download class="download-btn">Download PDF</a></td>
-            </tr>
-        </tbody>
-    </table>
+<tr>
+    <td data-label="Document Name">FSF</td>
+    <td data-label="PDF">
+        <a href="files/FSF.pdf" download>📄 PDF</a>
+    </td>
+</tr>
 
-</div>
+<tr>
+    <td data-label="Document Name">LTA</td>
+    <td data-label="PDF">
+        <a href="files/LTA.pdf" download>📄 PDF</a>
+    </td>
+</tr>
+
+</tbody>
+</table>
 
 </body>
 </html>
