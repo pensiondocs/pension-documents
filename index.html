@@ -1,31 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pension Documents</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+a {
+    text-decoration: none;
+    color: #0066cc;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.highlight {
+    background: yellow;
+    font-weight: bold;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead {
+        display: none;
+    }
+    td {
+        padding-left: 50%;
+        position: relative;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        font-weight: bold;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h2>Pension Documents</h2>
+
+<div class="controls">
+    <input type="text" id="search" placeholder="Search documents..." onkeyup="filterTable()">
+
+    <select id="category" onchange="filterTable()">
+        <option value="all">All Categories</option>
+        <option value="NHIS">NHIS</option>
+        <option value="LC">LC</option>
+        <option value="ALL">ALL</option>
+        <option value="FSF">FSF</option>
+        <option value="LTA">LTA</option>
+    </select>
+</div>
+
+<table id="docTable">
+<thead>
+<tr>
+    <th>Document Name</th>
+    <th>PDF</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr data-category="NHIS">
+    <td data-label="Document Name">NHIS</td>
+    <td data-label="PDF">
+        <a href="files/NHIS.pdf" download>📄 PDF</a>
+    </td>
+</tr>
+
+<tr data-category="LC">
+    <td data-label="Document Name">LC</td>
+    <td data-label="PDF">
+        <a href="files/LC.pdf" download>📄 PDF</a>
+    </td>
+</tr>
+
+<tr data-category="ALL">
+    <td data-label="Document Name">ALL</td>
+    <td data-label="PDF">
+        <a href="files/ALL.pdf" download>📄 PDF</a>
+    </td>
+</tr>
+
+<tr data-category="FSF">
+    <td data-label="Document Name">FSF</td>
+    <td data-label="PDF">
+        <a href="files/FSF.pdf" download>📄 PDF</a>
+    </td>
+</tr>
+
+<tr data-category="LTA">
+    <td data-label="Document Name">LTA</td>
+    <td data-label="PDF">
+        <a href="files/LTA.pdf" download>📄 PDF</a>
+    </td>
+</tr>
+
+</tbody>
+</table>
+
 <script>
 
-// ===============================
+// =======================
 // KEYWORD MAP
-// ===============================
+// =======================
 const keywordMap = {
     "NHIS": ["enrollment"],
     "LC": ["life certificate", "life"],
     "ALL": ["conversion"]
 };
 
-// ===============================
+// =======================
 // LEVENSHTEIN DISTANCE
-// ===============================
+// =======================
 function levenshtein(a, b) {
     const matrix = [];
-
-    for (let i = 0; i <= b.length; i++) {
-        matrix[i] = [i];
-    }
-
-    for (let j = 0; j <= a.length; j++) {
-        matrix[0][j] = j;
-    }
+    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
 
     for (let i = 1; i <= b.length; i++) {
         for (let j = 1; j <= a.length; j++) {
-            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+            if (b[i - 1] === a[j - 1]) {
                 matrix[i][j] = matrix[i - 1][j - 1];
             } else {
                 matrix[i][j] = Math.min(
@@ -36,26 +185,24 @@ function levenshtein(a, b) {
             }
         }
     }
-
     return matrix[b.length][a.length];
 }
 
-// ===============================
-// FUZZY MATCH FUNCTION
-// ===============================
+// =======================
+// FUZZY MATCH
+// =======================
 function fuzzyMatch(input, keyword) {
     input = input.toLowerCase();
     keyword = keyword.toLowerCase();
 
     if (input.includes(keyword)) return true;
 
-    const distance = levenshtein(input, keyword);
-    return distance <= 2; // allow small typos
+    return levenshtein(input, keyword) <= 2;
 }
 
-// ===============================
-// MAIN FILTER FUNCTION
-// ===============================
+// =======================
+// FILTER FUNCTION
+// =======================
 function filterTable() {
     const search = document.getElementById("search").value.toLowerCase().trim();
     const category = document.getElementById("category").value;
@@ -72,15 +219,13 @@ function filterTable() {
         let matchSearch = false;
         let matchCategory = (category === "all" || rowCategory === category);
 
-        // If no search → show based only on category
         if (search === "") {
             matchSearch = true;
         } else {
 
-            // 1️⃣ Keyword Trigger Check
+            // Keyword-based fuzzy match
             if (keywordMap[docKey]) {
                 const keywords = keywordMap[docKey];
-
                 for (let keyword of keywords) {
                     if (fuzzyMatch(search, keyword)) {
                         matchSearch = true;
@@ -89,20 +234,18 @@ function filterTable() {
                 }
             }
 
-            // 2️⃣ Normal Name Match
+            // Direct name match fallback
             if (!matchSearch && docName.includes(search)) {
                 matchSearch = true;
             }
         }
 
-        // Final decision
         if (matchSearch && matchCategory) {
             row.style.display = "";
 
-            // Highlight exact match only
             if (search !== "" && docName.includes(search)) {
                 const regex = new RegExp(search, "gi");
-                cell.innerHTML = originalText.replace(regex, 
+                cell.innerHTML = originalText.replace(regex,
                     match => `<span class="highlight">${match}</span>`
                 );
             } else {
@@ -116,5 +259,6 @@ function filterTable() {
 }
 
 </script>
+
 </body>
 </html>
