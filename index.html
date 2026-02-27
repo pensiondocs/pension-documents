@@ -9,66 +9,71 @@
 
 body {
     font-family: "Segoe UI", Arial, sans-serif;
-    background: #f5f7fa;
+    background: #f4f6f8;
     margin: 0;
-    padding: 40px 20px;
+    padding: 30px 18px 60px;
     color: #2c3e50;
 }
 
 h2 {
     text-align: center;
+    font-size: 30px;
     font-weight: 600;
-    font-size: 28px;
     margin-bottom: 35px;
     letter-spacing: 0.5px;
 }
 
 #docTable {
-    max-width: 850px;
+    width: 100%;
+    max-width: 500px;
     margin: 0 auto;
     border-collapse: separate;
-    border-spacing: 0 12px;
+    border-spacing: 0 18px; /* More vertical space */
 }
 
-thead th {
-    text-align: left;
-    font-weight: 600;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #7f8c8d;
-    padding: 8px 20px;
+thead {
+    display: none; /* Cleaner mobile look */
 }
 
 tbody tr {
     background: #ffffff;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-    border-radius: 8px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
     transition: 0.2s ease;
 }
 
 tbody tr:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.08);
 }
 
 td {
-    padding: 18px 20px;
-    font-size: 15px;
+    display: block;
+    padding: 22px 22px 18px;
     border: none;
 }
 
 td:first-child {
+    font-size: 18px;
     font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+td:last-child {
+    padding-top: 0;
+    padding-bottom: 22px;
 }
 
 a {
-    display: inline-block;
-    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
     background: #2c3e50;
     color: #ffffff;
-    border-radius: 6px;
-    font-size: 13px;
+    border-radius: 8px;
+    font-size: 14px;
     text-decoration: none;
     transition: 0.2s ease;
 }
@@ -83,34 +88,17 @@ a:hover {
     border-radius: 4px;
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-
-    body {
-        padding: 20px 10px;
-    }
+/* Slightly larger layout for tablets */
+@media (min-width: 600px) {
 
     #docTable {
-        border-spacing: 0 10px;
+        max-width: 650px;
     }
 
-    thead {
-        display: none;
+    td:first-child {
+        font-size: 19px;
     }
 
-    tbody tr {
-        display: block;
-        padding: 15px;
-    }
-
-    td {
-        display: block;
-        padding: 6px 0;
-    }
-
-    td:last-child {
-        margin-top: 8px;
-    }
 }
 
 </style>
@@ -277,4 +265,5 @@ function filterTable() {
 
 </body>
 </html>
+
 
