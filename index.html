@@ -1,297 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Pension Documents</title>
 
 <style>
 
-body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: #f4f6f8;
-    margin: 0;
-    padding: 30px 18px 60px;
-    color: #2c3e50;
+body{
+font-family:"Segoe UI",Arial,sans-serif;
+background:#f4f6f8;
+margin:0;
+padding:30px 18px 60px;
+color:#2c3e50;
 }
 
-h2 {
-    text-align: center;
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 35px;
-    letter-spacing: 0.5px;
+h2{
+text-align:center;
+font-size:30px;
+font-weight:600;
+margin-bottom:35px;
 }
 
-#docTable {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    border-collapse: separate;
-    border-spacing: 0 18px; /* More vertical space */
+#docTable{
+width:100%;
+max-width:500px;
+margin:auto;
+border-collapse:separate;
+border-spacing:0 18px;
 }
 
-thead {
-    display: none; /* Cleaner mobile look */
+tbody tr{
+background:#fff;
+border-radius:14px;
+box-shadow:0 6px 18px rgba(0,0,0,0.06);
+transition:.2s;
 }
 
-tbody tr {
-    background: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    transition: 0.2s ease;
+tbody tr:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 22px rgba(0,0,0,0.08);
 }
 
-tbody tr:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+td{
+display:block;
+padding:22px 22px 18px;
+border:none;
 }
 
-td {
-    display: block;
-    padding: 22px 22px 18px;
-    border: none;
+td:first-child{
+font-size:18px;
+font-weight:600;
+margin-bottom:12px;
 }
 
-td:first-child {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    line-height: 1.4;
+td:last-child{
+padding-top:0;
+padding-bottom:22px;
 }
 
-td:last-child {
-    padding-top: 0;
-    padding-bottom: 22px;
+a{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:10px 20px;
+background:#2c3e50;
+color:#fff;
+border-radius:8px;
+font-size:14px;
+text-decoration:none;
+transition:.2s;
 }
 
-a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #2c3e50;
-    color: #ffffff;
-    border-radius: 8px;
-    font-size: 14px;
-    text-decoration: none;
-    transition: 0.2s ease;
+a:hover{
+background:#1a252f;
 }
 
-a:hover {
-    background: #1a252f;
+@media (min-width:600px){
+
+#docTable{
+max-width:650px;
 }
 
-.highlight {
-    background: #ffeaa7;
-    padding: 2px 4px;
-    border-radius: 4px;
+td:first-child{
+font-size:19px;
 }
-
-/* Slightly larger layout for tablets */
-@media (min-width: 600px) {
-
-    #docTable {
-        max-width: 650px;
-    }
-
-    td:first-child {
-        font-size: 19px;
-    }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
 <h2>Pension Documents</h2>
 
 <table id="docTable">
-<thead>
-<tr>
-    <th>Document Name</th>
-    <th>PDF</th>
-</tr>
-</thead>
 
 <tbody>
 
-<tr data-category="NHIS">
-    <td data-label="Document Name">NHIS Annexure-3</td>
-    <td data-label="PDF">
-        <a href="files/NHIS.pdf" download>📄 PDF</a>
-    </td>
+<tr>
+<td>NHIS Annexure-3</td>
+<td>
+<a href="files/NHIS.pdf" download>📄 Download PDF</a>
+</td>
 </tr>
 
-<tr data-category="LC">
-    <td data-label="Document Name">Life Certificate Format</td>
-    <td data-label="PDF">
-        <a href="files/LC.pdf" download>📄 PDF</a>
-    </td>
+<tr>
+<td>Life Certificate Format</td>
+<td>
+<a href="files/LC.pdf" download>📄 Download PDF</a>
+</td>
 </tr>
 
-<tr data-category="ALL">
-    <td data-label="Document Name">Conversion Format (Full set)</td>
-    <td data-label="PDF">
-        <a href="files/ALL.pdf" download>📄 PDF</a>
-    </td>
+<tr>
+<td>Conversion Format (Full Set)</td>
+<td>
+<a href="files/ALL.pdf" download>📄 Download PDF</a>
+</td>
 </tr>
 
-<tr data-category="FSF">
-    <td data-label="Document Name">Family Security Fund Format</td>
-    <td data-label="PDF">
-        <a href="files/FSF.pdf" download>📄 PDF</a>
-    </td>
+<tr>
+<td>Family Security Fund Format</td>
+<td>
+<a href="files/FSF.pdf" download>📄 Download PDF</a>
+</td>
 </tr>
 
-<tr data-category="LTA">
-    <td data-label="Document Name">Life Time Arrears Format</td>
-    <td data-label="PDF">
-        <a href="files/LTA.pdf" download>📄 PDF</a>
-    </td>
+<tr>
+<td>FSF Nomination Form</td>
+<td>
+<a href="files/FSF_NOMINATION.pdf" download>📄 Download PDF</a>
+</td>
 </tr>
 
-<tr data-category="CONCURRENCE">
-    <td data-label="Document Name">Concurrence Format</td>
-    <td data-label="PDF">
-        <a href="files/CONCURRENCE.pdf" download>📄 PDF</a>
-    </td>
+<tr>
+<td>Life Time Arrears Format</td>
+<td>
+<a href="files/LTA.pdf" download>📄 Download PDF</a>
+</td>
 </tr>
 
-<tr data-category="FSF">
-    <td data-label="Document Name">FSF Nomination Form</td>
-    <td data-label="PDF">
-        <a href="files/FSF_NOMINATION.pdf" download>📄 PDF</a>
-    </td>
+<tr>
+<td>LTA Nomination Form</td>
+<td>
+<a href="files/LTA_NOMINATION.pdf" download>📄 Download PDF</a>
+</td>
 </tr>
 
-<tr data-category="LTA">
-    <td data-label="Document Name">LTA Nomination Form</td>
-    <td data-label="PDF">
-        <a href="files/LTA_NOMINATION.pdf" download>📄 PDF</a>
-    </td>
+<tr>
+<td>Concurrence Format</td>
+<td>
+<a href="files/CONCURRENCE.pdf" download>📄 Download PDF</a>
+</td>
 </tr>
 
-<tr data-category="UNDERTAKING">
-    <td data-label="Document Name">Undertaking Form</td>
-    <td data-label="PDF">
-        <a href="files/UNDERTAKING_FORM.pdf" download>📄 PDF</a>
-    </td>
+<tr>
+<td>Undertaking Form</td>
+<td>
+<a href="files/UNDERTAKING_FORM.pdf" download>📄 Download PDF</a>
+</td>
 </tr>
+
 </tbody>
+
 </table>
-
-<script>
-
-// =======================
-// KEYWORD MAP
-// =======================
-const keywordMap = {
-    "NHIS": ["enrollment"],
-    "LC": ["life certificate", "life"],
-    "ALL": ["conversion"]
-};
-
-// =======================
-// LEVENSHTEIN DISTANCE
-// =======================
-function levenshtein(a, b) {
-    const matrix = [];
-    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
-    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
-
-    for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-            if (b[i - 1] === a[j - 1]) {
-                matrix[i][j] = matrix[i - 1][j - 1];
-            } else {
-                matrix[i][j] = Math.min(
-                    matrix[i - 1][j - 1] + 1,
-                    matrix[i][j - 1] + 1,
-                    matrix[i - 1][j] + 1
-                );
-            }
-        }
-    }
-    return matrix[b.length][a.length];
-}
-
-// =======================
-// FUZZY MATCH
-// =======================
-function fuzzyMatch(input, keyword) {
-    input = input.toLowerCase();
-    keyword = keyword.toLowerCase();
-
-    if (input.includes(keyword)) return true;
-
-    return levenshtein(input, keyword) <= 2;
-}
-
-// =======================
-// FILTER FUNCTION
-// =======================
-function filterTable() {
-    const search = document.getElementById("search").value.toLowerCase().trim();
-    const category = document.getElementById("category").value;
-    const rows = document.querySelectorAll("#docTable tbody tr");
-
-    rows.forEach(row => {
-
-        const cell = row.cells[0];
-        const originalText = cell.innerText;
-        const docName = originalText.toLowerCase();
-        const docKey = row.getAttribute("data-key");
-        const rowCategory = row.getAttribute("data-category");
-
-        let matchSearch = false;
-        let matchCategory = (category === "all" || rowCategory === category);
-
-        if (search === "") {
-            matchSearch = true;
-        } else {
-
-            // Keyword-based fuzzy match
-            if (keywordMap[docKey]) {
-                const keywords = keywordMap[docKey];
-                for (let keyword of keywords) {
-                    if (fuzzyMatch(search, keyword)) {
-                        matchSearch = true;
-                        break;
-                    }
-                }
-            }
-
-            // Direct name match fallback
-            if (!matchSearch && docName.includes(search)) {
-                matchSearch = true;
-            }
-        }
-
-        if (matchSearch && matchCategory) {
-            row.style.display = "";
-
-            if (search !== "" && docName.includes(search)) {
-                const regex = new RegExp(search, "gi");
-                cell.innerHTML = originalText.replace(regex,
-                    match => `<span class="highlight">${match}</span>`
-                );
-            } else {
-                cell.innerText = originalText;
-            }
-
-        } else {
-            row.style.display = "none";
-        }
-    });
-}
-
-</script>
 
 </body>
 </html>
-
-
-
