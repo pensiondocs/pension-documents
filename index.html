@@ -13,79 +13,72 @@ body{
 font-family:"Segoe UI",Arial,sans-serif;
 background:#f4f6f8;
 margin:0;
-padding:30px 18px 60px;
+padding:30px 20px;
 color:#2c3e50;
 }
 
 h2{
 text-align:center;
-font-size:30px;
-font-weight:600;
 margin-bottom:35px;
+font-size:30px;
 }
 
-#docTable{
-width:100%;
-max-width:500px;
+.table-container{
+max-width:800px;
 margin:auto;
-border-collapse:separate;
-border-spacing:0 18px;
+background:white;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+overflow:hidden;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+thead{
+background:#2c3e50;
+color:white;
+}
+
+th,td{
+padding:16px 20px;
+text-align:left;
+}
+
+th{
+font-weight:600;
+font-size:15px;
 }
 
 tbody tr{
-background:#fff;
-border-radius:14px;
-box-shadow:0 6px 18px rgba(0,0,0,0.06);
-transition:.2s;
+border-bottom:1px solid #eee;
 }
 
 tbody tr:hover{
-transform:translateY(-3px);
-box-shadow:0 10px 22px rgba(0,0,0,0.08);
+background:#f7f9fb;
 }
 
-td{
-display:block;
-padding:22px 22px 18px;
-border:none;
-}
-
-td:first-child{
-font-size:18px;
-font-weight:600;
-margin-bottom:12px;
-}
-
-td:last-child{
-padding-top:0;
-padding-bottom:22px;
-}
-
-a{
-display:inline-flex;
-align-items:center;
-gap:8px;
-padding:10px 20px;
+.download-btn{
 background:#2c3e50;
-color:#fff;
-border-radius:8px;
-font-size:14px;
+color:white;
+padding:8px 16px;
+border-radius:6px;
 text-decoration:none;
-transition:.2s;
+font-size:14px;
+display:inline-block;
 }
 
-a:hover{
+.download-btn:hover{
 background:#1a252f;
 }
 
-@media (min-width:600px){
+@media(max-width:600px){
 
-#docTable{
-max-width:650px;
-}
-
-td:first-child{
-font-size:19px;
+th,td{
+padding:14px 12px;
+font-size:14px;
 }
 
 }
@@ -94,81 +87,73 @@ font-size:19px;
 
 </head>
 
-
 <body>
 
 <h2>Pension Documents</h2>
 
-<table id="docTable">
+<div class="table-container">
+
+<table>
+
+<thead>
+<tr>
+<th>Document Name</th>
+<th>Download</th>
+</tr>
+</thead>
 
 <tbody>
 
 <tr>
 <td>NHIS Annexure-3</td>
-<td>
-<a href="files/NHIS.pdf" download>📄 Download PDF</a>
-</td>
+<td><a class="download-btn" href="files/NHIS.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr>
 <td>Life Certificate Format</td>
-<td>
-<a href="files/LC.pdf" download>📄 Download PDF</a>
-</td>
+<td><a class="download-btn" href="files/LC.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr>
 <td>Conversion Format (Full Set)</td>
-<td>
-<a href="files/ALL.pdf" download>📄 Download PDF</a>
-</td>
+<td><a class="download-btn" href="files/ALL.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr>
 <td>Family Security Fund Format</td>
-<td>
-<a href="files/FSF.pdf" download>📄 Download PDF</a>
-</td>
+<td><a class="download-btn" href="files/FSF.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr>
-<td>FSF Nomination Form</td>
-<td>
-<a href="files/FSF_NOMINATION.pdf" download>📄 Download PDF</a>
-</td>
+<td>FSF Nomination Format</td>
+<td><a class="download-btn" href="files/FSF_NOMINATION.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr>
 <td>Life Time Arrears Format</td>
-<td>
-<a href="files/LTA.pdf" download>📄 Download PDF</a>
-</td>
+<td><a class="download-btn" href="files/LTA.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr>
-<td>LTA Nomination Form</td>
-<td>
-<a href="files/LTA_NOMINATION.pdf" download>📄 Download PDF</a>
-</td>
+<td>LTA Nomination Format</td>
+<td><a class="download-btn" href="files/LTA_NOMINATION.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr>
 <td>Concurrence Format</td>
-<td>
-<a href="files/CONCURRENCE.pdf" download>📄 Download PDF</a>
-</td>
+<td><a class="download-btn" href="files/CONCURRENCE.pdf" download>Download PDF</a></td>
 </tr>
 
 <tr>
-<td>Undertaking Form</td>
-<td>
-<a href="files/UNDERTAKING_FORM.pdf" download>📄 Download PDF</a>
-</td>
+<td>Undertaking Format</td>
+<td><a class="download-btn" href="files/UNDERTAKING_FORM.pdf" download>Download PDF</a></td>
 </tr>
 
 </tbody>
 
 </table>
+
+</div>
 
 </body>
 </html>
